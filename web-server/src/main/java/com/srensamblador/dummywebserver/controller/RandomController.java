@@ -29,7 +29,7 @@ public class RandomController {
 	 * Returns a random integer
 	 * @return random int
 	 */
-	@GetMapping("/random/int")
+	@GetMapping(path="/random/int")
 	public int getRandomInt() {
 		return randomGenerator.randomInt();
 	}

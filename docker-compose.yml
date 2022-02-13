@@ -9,13 +9,12 @@ services:
       - "50000:50000"
     volumes:
       - ./docker_volumes/jenkins_home:/var/jenkins_home
-      - ./docker_volumes/jenkins_home/downloads:/var/jenkins_home/downloads
   
   tomcat:
     image: tomcat:9.0
     ports:
       - 8888:8080
     volumes:
-      - ./docker_volumes/tomcat/config:/usr/local/tomcat/conf
-      - ./docker_volumes/tomcat/webapps:/usr/local/tomcat/webapps
+     - ./docker_volumes/tomcat/config:/usr/local/tomcat/conf
+     - ./web-server/target/dummy-web-server.war:/usr/local/tomcat/webapps/ROOT.war:ro
 
