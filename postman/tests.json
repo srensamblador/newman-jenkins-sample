@@ -110,7 +110,7 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					"pm.request.url=\"http://{{host}}:{{port}}/\"+pm.request.url;"
+					"pm.request.url=\"{{url}}/\"+pm.request.url;"
 				]
 			}
 		},
