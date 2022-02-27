@@ -14,8 +14,8 @@ pipeline {
         }
         stage('Test'){
             steps{
-                // Newman tests
-                sh 'newman run postman/tests.json --global-var="url=tomcat:8080"'                      
+                // Newman tests && reports
+                sh 'newman run postman/tests.json --global-var="url=tomcat:8080" --reporters cli,junit --reporter-junit-export "reports/newman.xml"'                      
             }
         }
     }
