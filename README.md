@@ -4,17 +4,11 @@ This demo showcases the usage of [Newman](https://www.npmjs.com/package/newman) 
 
 ## How to use the demo
 
-The repo contains a simple Spring web server against which the Postman tests will be ran.
-
-First, generate the WAR artifact of said server:
-
-``` $ mvn -f web-server/pom.xml clean package ```
-
-Then, start the containers using the Compose file attached:
+First, start the containers using the Compose file attached:
 
 ``` $ docker-compose up ```
 
-This starts both a Jenkins instance and a Tomcat hosting the WAR file previously generated.
+This starts both a Jenkins instance and a Tomcat hosting a simple web server against which the Postman/Newman tests will be ran.
 
 Access Jenkins at http://localhost:8080. 
 
