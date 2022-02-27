@@ -123,17 +123,5 @@
 				]
 			}
 		}
-	],
-	"variable": [
-		{
-			"key": "host",
-			"value": "localhost",
-			"type": "default"
-		},
-		{
-			"key": "port",
-			"value": "8081",
-			"type": "default"
-		}
 	]
 }
