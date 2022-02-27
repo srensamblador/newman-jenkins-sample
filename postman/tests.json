@@ -1,0 +1,139 @@
+{
+	"info": {
+		"_postman_id": "e2808b72-2968-45ef-b452-023dd1077ec1",
+		"name": "WebServerTests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GetRandomInt",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"OK\",()=>{\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "random/int",
+					"host": [
+						"random"
+					],
+					"path": [
+						"int"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRandomIntBounded valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"OK\",()=>{\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "random/int/0/5",
+					"host": [
+						"random"
+					],
+					"path": [
+						"int",
+						"0",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRandomChoice valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"OK\",()=>{\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "random/choice?values=1,2,3",
+					"host": [
+						"random"
+					],
+					"path": [
+						"choice"
+					],
+					"query": [
+						{
+							"key": "values",
+							"value": "1,2,3"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.request.url=\"http://{{host}}:{{port}}/\"+pm.request.url;"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "localhost",
+			"type": "default"
+		},
+		{
+			"key": "port",
+			"value": "8081",
+			"type": "default"
+		}
+	]
+}
