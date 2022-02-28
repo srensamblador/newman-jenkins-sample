@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout'){
             steps{
                 // Clone repo
-                git url: 'https://github.com/srensamblador/newman-jenkins-sample'
+                git branch: 'main' url: 'https://github.com/srensamblador/newman-jenkins-sample'
             }
         }
         stage('Test'){
