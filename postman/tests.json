@@ -14,7 +14,11 @@
 						"exec": [
 							"pm.test(\"OK\",()=>{\r",
 							"    pm.expect(pm.response.code).to.eql(200);\r",
-							"});"
+							"});\r",
+							"\r",
+							"pm.test(\"Returns a number\", () => {\r",
+							"    pm.expect(pm.response.json()).a(\"number\");\r",
+							"})"
 						],
 						"type": "text/javascript"
 					}
@@ -42,9 +46,48 @@
 					"listen": "test",
 					"script": {
 						"exec": [
+							"pm.test(\"KO\",()=>{\r",
+							"    pm.expect(pm.response.code).to.eql(400);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "random/int/5/0",
+					"host": [
+						"random"
+					],
+					"path": [
+						"int",
+						"5",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRandomIntBounded not valid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
 							"pm.test(\"OK\",()=>{\r",
 							"    pm.expect(pm.response.code).to.eql(200);\r",
-							"});"
+							"});\r",
+							"\r",
+							"pm.test(\"Valid bound\", () => {\r",
+							"    const rand = pm.response.json();\r",
+							"    pm.expect(rand).to.gte(0);\r",
+							"    pm.expect(rand).to.lte(5);\r",
+							"})"
 						],
 						"type": "text/javascript"
 					}
@@ -68,7 +111,7 @@
 			"response": []
 		},
 		{
-			"name": "GetRandomChoice valid",
+			"name": "GetRandomChoice valid int",
 			"event": [
 				{
 					"listen": "test",
@@ -76,7 +119,13 @@
 						"exec": [
 							"pm.test(\"OK\",()=>{\r",
 							"    pm.expect(pm.response.code).to.eql(200);\r",
-							"});"
+							"});\r",
+							"\r",
+							"pm.test(\"Result is one of the possible values\", () => {\r",
+							"    const rand = pm.response.json();\r",
+							"\r",
+							"    pm.expect(rand).to.be.oneOf([1,2,3]);\r",
+							"})"
 						],
 						"type": "text/javascript"
 					}
@@ -102,6 +151,132 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GetRandomChoice empty",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"OK\",()=>{\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Result is one of the possible values\", () => {\r",
+							"    const rand = pm.response.json();\r",
+							"\r",
+							"    pm.expect(rand).to.be.oneOf([1,2,3]);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "random/choice?values=1,2,3",
+					"host": [
+						"random"
+					],
+					"path": [
+						"choice"
+					],
+					"query": [
+						{
+							"key": "values",
+							"value": "1,2,3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRandomChoice missing param",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"OK\",()=>{\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Result is one of the possible values\", () => {\r",
+							"    const rand = pm.response.json();\r",
+							"\r",
+							"    pm.expect(rand).to.be.oneOf([1,2,3]);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "random/choice?values=1,2,3",
+					"host": [
+						"random"
+					],
+					"path": [
+						"choice"
+					],
+					"query": [
+						{
+							"key": "values",
+							"value": "1,2,3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRandomChoice valid mix of types",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"OK\",()=>{\r",
+							"    pm.expect(pm.response.code).to.eql(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Result is one of the possible values\", () => {\r",
+							"    const rand = pm.response.json();\r",
+							"\r",
+							"    pm.expect(rand).to.be.oneOf([1,\"test\",false])\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "random/choice?values=1,\"test\",false",
+					"host": [
+						"random"
+					],
+					"path": [
+						"choice"
+					],
+					"query": [
+						{
+							"key": "values",
+							"value": "1,\"test\",false"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"event": [
@@ -110,7 +285,7 @@
 			"script": {
 				"type": "text/javascript",
 				"exec": [
-					"pm.request.url=\"{{url}}/\"+pm.request.url;"
+					"pm.request.url=\"http://{{host}}:{{port}}/\"+pm.request.url;"
 				]
 			}
 		},
